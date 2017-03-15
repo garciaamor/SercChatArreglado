@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-            String miMsg = "{id:\""+msg :\"mimensaje\",esPrivado:\"true\",dst:\"elotro\"}";
+            //String miMsg = "{id:\""+msg :\"mimensaje\",esPrivado:\"true\",dst:\"elotro\"}";
 
 
         }
