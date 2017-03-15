@@ -188,7 +188,8 @@ public class MainActivity extends AppCompatActivity
         String mimensaje;
         String esPrivado;
         String elotro;
-        String miMsg = "{id:\""+ miUsuario +msg :\"mimensaje\",esPrivado:\"true\",dst:\"elotro\"}";
+
+        String miMsg = "{id:\""+msg :\"mimensaje\",esPrivado:\"true\",dst:\"elotro\"}";
 
 
     }
