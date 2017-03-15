@@ -184,10 +184,11 @@ public class MainActivity extends AppCompatActivity
             editText.setText("");
         }
         String msg;
+        String miUsuario;
         String mimensaje;
         String esPrivado;
         String elotro;
-        String miMsg = "{id:\""+ msg :\"mimensaje\",esPrivado:\"true\",dst:\"elotro\"}";
+        String miMsg = "{id:\""+ miUsuario +msg :\"mimensaje\",esPrivado:\"true\",dst:\"elotro\"}";
 
 
     }
