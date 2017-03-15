@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -180,16 +181,19 @@ public class MainActivity extends AppCompatActivity
 
         public void sendMessage() {
             EditText editText = (EditText)findViewById(R.id.message);
+            //CheckBox chk = (CheckBox) findViewById(R.id.CheckBox);
+            //EditText destinatario = (EditText) findViewById(R.id.destinatario);
+            String mensaje = editText.getText().toString();
+            int privado;
             mWebSocketClient.send(editText.getText().toString());
             editText.setText("");
-        }
-        String msg;
-        String miUsuario;
-        String mimensaje;
-        String esPrivado;
-        String elotro;
 
-        String miMsg = "{id:\""+msg :\"mimensaje\",esPrivado:\"true\",dst:\"elotro\"}";
+
+
+            String miMsg = "{id:\""+msg :\"mimensaje\",esPrivado:\"true\",dst:\"elotro\"}";
+
+
+        }
 
 
     }
