@@ -27,23 +27,29 @@
     </ScrollView>
 
 
-    <LinearLayout
+    <GridLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/message"
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_width="match_parent"
             android:layout_weight="1"
+
             android:hint="Message"
             android:inputType="textShortMessage|textMultiLine|textCapSentences"/>
 
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+        <EditText
+            android:id="@+id/destinatario"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
 
-
-    </LinearLayout>
-
+    </GridLayout>
 
 
 </LinearLayout>
