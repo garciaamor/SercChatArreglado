@@ -183,4 +183,10 @@ public class MainActivity extends AppCompatActivity
             mWebSocketClient.send(editText.getText().toString());
             editText.setText("");
         }
+        String msg;
+        String mimensaje;
+        String true;
+        String elotro;
+        String miMsg = "{id:\""miusuario+ msg :\"mimensaje\",esPrivadro:\"true\",dst:\"elotro\"}";
+
     }
