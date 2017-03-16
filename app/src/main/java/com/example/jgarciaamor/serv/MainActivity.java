@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.JsonWriter;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -41,6 +42,44 @@ public class MainActivity extends AppCompatActivity
     private WebSocketClient mWebSocketClient;
 
     private static final int MY_PERMISSIONS_REQUEST_INTERNET=1;
+
+        private String usuario;
+        private String mensaje;
+        private String destino;
+
+        public MainActivity(String usuario, String mensaje, String destino) {
+            this.usuario = usuario;
+            this.mensaje = mensaje;
+            this.destino = destino;
+        }
+
+        public String getUsuario() {
+            return usuario;
+        }
+
+        public void setUsuario(String usuario) {
+            this.usuario = usuario;
+        }
+
+        public String getMensaje() {
+            return mensaje;
+        }
+
+        public void setMensaje(String mensaje) {
+            this.mensaje = mensaje;
+        }
+
+        public String getDestino() {
+            return destino;
+        }
+
+        public void setDestino(String destino) {
+            this.destino = destino;
+        }
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +173,7 @@ public class MainActivity extends AppCompatActivity
             URI uri;
             try {
                 uri = new URI("ws://serv-garciaamor.c9users.io:8081");
+                //uri = new URI("ws://serv-mariomoure.c9users.io:8081");
             } catch (URISyntaxException e) {
                 e.printStackTrace();
                 return;
@@ -180,9 +220,10 @@ public class MainActivity extends AppCompatActivity
 
 
         public void sendMessage() {
+            String user = "Javi";
             EditText editText = (EditText)findViewById(R.id.message);
             CheckBox chk = (CheckBox) findViewById(R.id.chk);
-            EditText destinatario = (EditText) findViewById(R.id.destinatario);
+            EditText dest = (EditText) findViewById(R.id.destinatario);
             String mensaje = editText.getText().toString();
             int privado;
             if (chk.isChecked()){
@@ -190,14 +231,12 @@ public class MainActivity extends AppCompatActivity
             }else{
                 privado=0;
             }
+            String direccion = dest.getText().toString();
+            String miMsg = "{id:\""+user+"\",msg:\""+mensaje+"\",esPrivado:"+privado+",dst:\""+direccion+"\"}";
 
-            mWebSocketClient.send(editText.getText().toString());
+            mWebSocketClient.send(miMsg);
             editText.setText("");
-
-
-
-            //String miMsg = "{id:\""+msg :\"mimensaje\",esPrivado:\"true\",dst:\"elotro\"}";
-
+            dest.setText("");
 
         }
 
