@@ -28,26 +28,32 @@
 
 
     <GridLayout
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:rowCount="6"
+        android:columnCount="5">
 
         <EditText
             android:id="@+id/message"
             android:layout_height="50dp"
             android:layout_width="match_parent"
             android:layout_weight="1"
-
+            android:layout_row="1"
             android:hint="Message"
             android:inputType="textShortMessage|textMultiLine|textCapSentences"/>
 
         <CheckBox
-            android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:id="@+id/chk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="2"/>
         <EditText
             android:id="@+id/destinatario"
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:hint="Destinatario"
+            android:layout_row="3"/>
 
     </GridLayout>
 

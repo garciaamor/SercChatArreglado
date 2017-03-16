@@ -181,10 +181,16 @@ public class MainActivity extends AppCompatActivity
 
         public void sendMessage() {
             EditText editText = (EditText)findViewById(R.id.message);
-            //CheckBox chk = (CheckBox) findViewById(R.id.CheckBox);
-            //EditText destinatario = (EditText) findViewById(R.id.destinatario);
+            CheckBox chk = (CheckBox) findViewById(R.id.chk);
+            EditText destinatario = (EditText) findViewById(R.id.destinatario);
             String mensaje = editText.getText().toString();
             int privado;
+            if (chk.isChecked()){
+                privado=1;
+            }else{
+                privado=0;
+            }
+
             mWebSocketClient.send(editText.getText().toString());
             editText.setText("");
 
