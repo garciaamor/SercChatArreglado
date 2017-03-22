@@ -46,30 +46,6 @@ public class MainActivity extends AppCompatActivity
 
     private static final int MY_PERMISSIONS_REQUEST_INTERNET=1;
 
-    private String user;
-        private String mens;
-        private int confirm;
-        private String destin;
-
-        public MainActivity(){
-
-        }
-        public String getUser(){
-            return user;
-        }
-        public String getMens() {return mens; }
-        public String getDestin(){
-            return mens;
-        }
-        public void setUser(String user){
-            this.user = user;
-        }
-        public void setMens(String mens){
-            this.mens = mens;
-        }
-        public void setDestin(String destin){
-            this.destin = destin;
-        }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,14 +177,14 @@ public class MainActivity extends AppCompatActivity
                                     det = object.getString("det");
 
                                 TextView textView = (TextView)findViewById(R.id.messages);
-                                textView.setText(textView.getText() + "\n" + message);
+                                textView.setText(textView.getText() + "\n" +nombre + " \n "+ msg+" \n "+priv+" \n "+det);
 
                             }catch (JSONException e){
                                 TextView textView = (TextView)findViewById(R.id.messages);
                                 textView.setText(textView.getText() + "\n" + message);
                             }
 
-                            
+
                         }
                     });
                 }
