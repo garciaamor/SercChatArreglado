@@ -28,12 +28,15 @@ import android.widget.Toast;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft_17;
 import org.java_websocket.handshake.ServerHandshake;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.jgarciaamor.serv.R.id.textView;
 
 
 public class MainActivity extends AppCompatActivity
@@ -43,43 +46,30 @@ public class MainActivity extends AppCompatActivity
 
     private static final int MY_PERMISSIONS_REQUEST_INTERNET=1;
 
-        private String usuario;
-        private String mensaje;
-        private String destino;
+    private String user;
+        private String mens;
+        private int confirm;
+        private String destin;
 
-        public MainActivity(String usuario, String mensaje, String destino) {
-            this.usuario = usuario;
-            this.mensaje = mensaje;
-            this.destino = destino;
+        public MainActivity(){
+
         }
-
-        public String getUsuario() {
-            return usuario;
+        public String getUser(){
+            return user;
         }
-
-        public void setUsuario(String usuario) {
-            this.usuario = usuario;
+        public String getMens() {return mens; }
+        public String getDestin(){
+            return mens;
         }
-
-        public String getMensaje() {
-            return mensaje;
+        public void setUser(String user){
+            this.user = user;
         }
-
-        public void setMensaje(String mensaje) {
-            this.mensaje = mensaje;
+        public void setMens(String mens){
+            this.mens = mens;
         }
-
-        public String getDestino() {
-            return destino;
+        public void setDestin(String destin){
+            this.destin = destin;
         }
-
-        public void setDestino(String destino) {
-            this.destino = destino;
-        }
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,8 +187,28 @@ public class MainActivity extends AppCompatActivity
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            TextView textView = (TextView)findViewById(R.id.messages);
-                            textView.setText(textView.getText() + "\n" + message);
+
+                            String nombre;
+                            String msg;
+                            int priv;
+                            String det;
+
+                            try{
+                                JSONObject object = new JSONObject(message);
+                                    nombre=object.getString("id");
+                                    msg = object.getString("msg");
+                                    priv = object.getInt("priv");
+                                    det = object.getString("det");
+
+                                TextView textView = (TextView)findViewById(R.id.messages);
+                                textView.setText(textView.getText() + "\n" + message);
+
+                            }catch (JSONException e){
+                                TextView textView = (TextView)findViewById(R.id.messages);
+                                textView.setText(textView.getText() + "\n" + message);
+                            }
+
+                            
                         }
                     });
                 }
