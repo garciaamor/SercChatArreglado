@@ -127,13 +127,13 @@ public class MainActivity extends AppCompatActivity
 
             if (id == R.id.nav_camera) {
                 // Handle the camera action
-            } else if (id == R.id.nick) {
+            } else if (id == R.id.nickUsr) {
                 AlertDialog.Builder alert= new AlertDialog.Builder(this);
                 final EditText user=new EditText(this);
                 user.setSingleLine();
                 user.setPadding(50,0,50,0);
-                alert.setTitle("Nick");
-                alert.setMessage("Introduzca el Nick");
+                alert.setTitle("Nickname");
+                alert.setMessage("Introduzca un nombre ");
                 alert.setView(user);
                 alert.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
@@ -146,11 +146,11 @@ public class MainActivity extends AppCompatActivity
                 alert.create();
                 alert.show();
 
-            } else if (id == R.id.conectar) {
+            } else if (id == R.id.cnct) {
                 if(userName==null){
                     AlertDialog.Builder alertC=new AlertDialog.Builder(this);
                     alertC.setTitle("Atención");
-                    alertC.setMessage("Introduzca el nick antes de la conexión");
+                    alertC.setMessage("Necesitas un nick para conectarte");
                     alertC.setPositiveButton("Aceptar",null);
                     alertC.create();
                     alertC.show();
