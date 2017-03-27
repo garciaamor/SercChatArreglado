@@ -2,6 +2,7 @@ package com.example.jgarciaamor.serv;
 
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.JsonWriter;
 import android.util.Log;
 import android.view.View;
@@ -42,7 +44,10 @@ import static com.example.jgarciaamor.serv.R.id.textView;
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener
     {
+
+        public static String userName;
     private WebSocketClient mWebSocketClient;
+        JSONObject object, client;
 
     private static final int MY_PERMISSIONS_REQUEST_INTERNET=1;
 
@@ -80,7 +85,15 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-        
+        @Override
+        public void onBackPressed() {
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+            } else {
+                super.onBackPressed();
+            }
+        }
 
 
     @Override
@@ -114,10 +127,37 @@ public class MainActivity extends AppCompatActivity
 
             if (id == R.id.nav_camera) {
                 // Handle the camera action
-            } else if (id == R.id.nav_gallery) {
+            } else if (id == R.id.nick) {
+                AlertDialog.Builder alert= new AlertDialog.Builder(this);
+                final EditText user=new EditText(this);
+                user.setSingleLine();
+                user.setPadding(50,0,50,0);
+                alert.setTitle("Nick");
+                alert.setMessage("Introduzca el Nick");
+                alert.setView(user);
+                alert.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-            } else if (id == R.id.nav_slideshow) {
+                        userName=user.getText().toString();
+                    }
+                });
+                alert.setNegativeButton("Cancelar",null);
+                alert.create();
+                alert.show();
 
+            } else if (id == R.id.conectar) {
+                if(userName==null){
+                    AlertDialog.Builder alertC=new AlertDialog.Builder(this);
+                    alertC.setTitle("Atención");
+                    alertC.setMessage("Introduzca el nick antes de la conexión");
+                    alertC.setPositiveButton("Aceptar",null);
+                    alertC.create();
+                    alertC.show();
+
+                }else {
+                    connectWebSocket();
+                }
             } else if (id == R.id.nav_manage) {
 
             } else if (id == R.id.nav_share) {
@@ -155,6 +195,7 @@ public class MainActivity extends AppCompatActivity
                 public void onOpen(ServerHandshake serverHandshake) {
                     Log.i("Websocket", "Opened");
                     mWebSocketClient.send("Hello from " + Build.MANUFACTURER + " " + Build.MODEL);
+                client = new JSONObject();
                 }
 
                 @Override
@@ -163,6 +204,7 @@ public class MainActivity extends AppCompatActivity
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            TextView textView = (TextView)findViewById(R.id.messages);
 
                             String nombre;
                             String msg;
@@ -170,17 +212,24 @@ public class MainActivity extends AppCompatActivity
                             String det;
 
                             try{
-                                JSONObject object = new JSONObject(message);
+                                object = new JSONObject(message);
                                     nombre=object.getString("id");
                                     msg = object.getString("msg");
                                     priv = object.getInt("priv");
                                     det = object.getString("det");
 
-                                TextView textView = (TextView)findViewById(R.id.messages);
-                                textView.setText(textView.getText() + "\n" +nombre + " \n "+ msg+" \n "+priv+" \n "+det);
+                                if(priv==1){
+                                    if(det.equals(userName)){
+                                        textView.setText(textView.getText() + "\n" + nombre+ "\n" + msg);
+                                    }
 
-                            }catch (JSONException e){
-                                TextView textView = (TextView)findViewById(R.id.messages);
+                                }else
+                                    textView.setText(textView.getText() + "\n" + nombre+ "\n" + msg);
+
+
+                            }
+                            catch(JSONException e){
+
                                 textView.setText(textView.getText() + "\n" + message);
                             }
 
@@ -188,6 +237,7 @@ public class MainActivity extends AppCompatActivity
                         }
                     });
                 }
+
 
                 @Override
                 public void onClose(int i, String s, boolean b) {
